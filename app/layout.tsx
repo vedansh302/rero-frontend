@@ -12,7 +12,9 @@ export const metadata = {
   title: "Renewable Energy Resource Optimizer",
   description:
     "Find the optimal renewable energy solution for your location using AI-driven insights and real-time weather data.",
-    generator: 'v0.dev'
+    icons: {
+      icon: "/favicon.ico",
+    },
 }
 
 export default function RootLayout({
