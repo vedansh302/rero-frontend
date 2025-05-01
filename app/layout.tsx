@@ -11,8 +11,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Renewable Energy Resource Optimizer",
   description:
-    "Find the optimal renewable energy solution for your location using AI-driven insights and real-time weather data.",
-    generator: 'v0.dev',
+    "Find the optimal renewable energy solution for your location using AI-driven insights and real-time weather data."
 }
 
 export default function RootLayout({
