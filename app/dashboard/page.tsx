@@ -213,17 +213,53 @@ export default function Dashboard() {
                       type="button"
                       className="shrink-0"
                       disabled={isLoading}
-                      onClick={() => {
-                        // Get user's current location
+                      onClick={async () => {
                         if (navigator.geolocation) {
                           navigator.geolocation.getCurrentPosition(
-                            (position) => {
+                            async (position) => {
                               const { latitude, longitude } = position.coords
-                              setLocation(`${latitude}, ${longitude}`)
-                              toast({
-                                title: "Location Updated",
-                                description: "Using your current coordinates for analysis.",
-                              })
+
+                              const apiKey = process.env.NEXT_PUBLIC_OPENCAGE_API_KEY
+                              if (!apiKey) {
+                                toast({
+                                  title: "API Key Missing",
+                                  description: "OpenCage API key is not set in environment variables.",
+                                  variant: "destructive",
+                                })
+                                return
+                              }
+
+                              try {
+                                const response = await fetch(
+                                  `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`
+                                )
+                                const data = await response.json()
+
+                                const placeName =
+                                  data?.results?.[0]?.components?.city ||
+                                  data?.results?.[0]?.components?.town ||
+                                  data?.results?.[0]?.components?.village ||
+                                  data?.results?.[0]?.components?.state ||
+                                  data?.results?.[0]?.components?.country ||
+                                  data?.results?.[0]?.formatted
+
+                                if (placeName) {
+                                  setLocation(placeName)
+                                  toast({
+                                    title: "Location Updated",
+                                    description: `Detected location: ${placeName}`,
+                                  })
+                                } else {
+                                  throw new Error("Place name not found")
+                                }
+                              } catch (error) {
+                                console.error("Error fetching place name:", error)
+                                toast({
+                                  title: "Geocoding Error",
+                                  description: "Could not fetch your location name. Please enter it manually.",
+                                  variant: "destructive",
+                                })
+                              }
                             },
                             (error) => {
                               console.error("Error getting location:", error)
@@ -232,7 +268,7 @@ export default function Dashboard() {
                                 description: "Could not get your current location. Please enter it manually.",
                                 variant: "destructive",
                               })
-                            },
+                            }
                           )
                         }
                       }}
@@ -242,6 +278,7 @@ export default function Dashboard() {
                     </Button>
                   </div>
                 </div>
+
 
                 <div className="space-y-2">
                   <Label htmlFor="property-type">Property Type</Label>
