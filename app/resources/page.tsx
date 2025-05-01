@@ -60,7 +60,7 @@ export default function ResourcesPage() {
                 alt="Solar Panel Installation"
                 className="rounded-lg object-cover"
                 height="300"
-                src="/placeholder.svg?height=300&width=500"
+                src="/solar-energy.png"
                 width="500"
               />
             </div>
@@ -167,7 +167,7 @@ export default function ResourcesPage() {
                 alt="Wind Turbines"
                 className="rounded-lg object-cover"
                 height="300"
-                src="/placeholder.svg?height=300&width=500"
+                src="/wind-energy.png"
                 width="500"
               />
             </div>
@@ -274,7 +274,7 @@ export default function ResourcesPage() {
                 alt="Micro Hydro System"
                 className="rounded-lg object-cover"
                 height="300"
-                src="/placeholder.svg?height=300&width=500"
+                src="/hydro-energy.png"
                 width="500"
               />
             </div>
