@@ -11,7 +11,10 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Renewable Energy Resource Optimizer",
   description:
-    "Find the optimal renewable energy solution for your location using AI-driven insights and real-time weather data."
+    "Find the optimal renewable energy solution for your location using AI-driven insights and real-time weather data.",
+    icons: {
+      icon: '/favicon.ico',
+    },
 }
 
 export default function RootLayout({
@@ -21,6 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head><link rel="icon" href="/favicon.ico" /></head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AuthProvider>
